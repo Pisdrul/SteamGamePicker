@@ -104,6 +104,5 @@ with result: #pagina risutlati
             st.write(i+1,':')
             st.image(st.session_state['risultatiimg'][i])
             steamlink='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
-            if st.button('Link al gioco',steamlink): #link alla pagina di Steam
-                webbrowser.open(steamlink)
+            if st.button('Link al gioco',steamlink, on_click=webbrowser.open(steamlink)): #link alla pagina di Steam
                 st.write("Sto cercando di aprire")
