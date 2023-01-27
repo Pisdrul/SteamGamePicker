@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import MLpart as ml
-import webrowser
+import webbrowser
 from streamlit_autorefresh import st_autorefresh
 
 dataset= pd.read_csv('datasetpulito.csv')
