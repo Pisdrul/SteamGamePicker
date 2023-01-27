@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import MLpart as ml
-import time
+import webrowser
 from streamlit_autorefresh import st_autorefresh
 
 dataset= pd.read_csv('datasetpulito.csv')
@@ -105,4 +105,4 @@ with result: #pagina risutlati
             st.image(st.session_state['risultatiimg'][i])
             steamlink='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
             if st.button('Link al gioco',steamlink): #link alla pagina di Steam
-                redirect(steamlink)
+                webbrowser.open(steamlink)
