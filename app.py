@@ -27,7 +27,7 @@ with start:
     st.title("SteamGamePicker")
     st.write("Choose up to 10 games that you like and then we'll give you our recommendation!")
 
-    option = st.selectbox('Select a game?',dataset.name)
+    option = st.selectbox('Select a game!',dataset.name)
     col1, col2,col3 = st.columns(3)
 
     with col1: #pulsante submit
