@@ -106,3 +106,4 @@ with result: #pagina risutlati
             steamlink='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
             if st.button('Link al gioco',steamlink): #link alla pagina di Steam
                 webbrowser.open(steamlink)
+                st.write("Sto cercando di aprire")
