@@ -1,4 +1,3 @@
 numpy
 streamlit
 streamlit_autorefresh
-webbrowser
