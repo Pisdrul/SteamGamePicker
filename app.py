@@ -105,4 +105,4 @@ with result: #pagina risutlati
             st.image(st.session_state['risultatiimg'][i])
             steamlink='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
             st.markdown(f'''
-                            <a href={steamlink}><button style="background-color:Gray;">Link al gioco</button></a>''',unsafe_allow_html=True)
+                            <a href={steamlink}><button style="background-color:Gray;">Link to the store</button></a>''',unsafe_allow_html=True)
