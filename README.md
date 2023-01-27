@@ -1,7 +1,7 @@
 # SteamGamePicker
 A game recommendation web app
 
-Project for the Software Engineering course at the University of Trieste.
+Project for the Software and Information Systems Design course at the University of Trieste.
 The project consists of a web app made with python utilizing the streamlit library. 
 The dataset we utilized can be found at https://www.kaggle.com/datasets/nikdavis/steam-store-games
 We utilized 3 of the CSV that were provided in the link, which you can find in the dataset folder.
