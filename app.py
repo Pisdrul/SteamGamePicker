@@ -7,21 +7,26 @@ import webbrowser
 
 dataset= pd.read_csv('datasetpulito.csv')
 start, result = st.tabs(['Start','Result'])
+
+#inizializzazione variabili di sessione 
 if 'id' not in st.session_state:
-    st.session_state['id'] = []
+    st.session_state['id'] = [] #id giochi scelti dall'utente
 
 if 'images' not in st.session_state:
-    st.session_state['images']= []
+    st.session_state['images']= [] #immagini dei giochi scelti dall'utente
+    
 
 if 'risultatopronto' not in st.session_state:
-    st.session_state['risultatopronto']= None
-
+    st.session_state['risultatopronto']= None #variabile usata per controllare se l'utente ha inserito almeno un gioco, oppure se il back-end ha finito di lavorare
+    
 if 'risultati' not in st.session_state:
-    st.session_state['risultati'] = []
+    st.session_state['risultati'] = [] #array con risultati e distanze
+    
 if 'risultatiappid' not in st.session_state:
-    st.session_state['risultatiappid']=[]
+    st.session_state['risultatiappid']=[] #array con appid risultati
+    
 if 'risultatiimg' not in st.session_state:
-    st.session_state['risultatiimg'] = []
+    st.session_state['risultatiimg'] = [] #array con immagini risultati
 
 with start:
     st.title("SteamGamePicker")
@@ -51,16 +56,16 @@ with start:
             st.session_state['risultatopronto']= None
             del(st.session_state['risultati'])
             del(st.session_state['risultatiimg'])
-            del(st.session_state['risultatiappid'])
-    with col3: #pulsante result
+            del(st.session_state['risultatiappid']) #cancella tutte le variabili di sessione
+           #problema, se viene premuto durante la computazione del back-end annulla il processo
+    with col3: #pulsante che non fa nulla se non lasciare all'utente l'accesso alla results page
         if len(st.session_state['id'])<=10:
             if st.button('Submit preferences'):
                 st.write('Go to the Result tab!')
                 st.session_state['risultatopronto']= False
-        #else:
-            #st.write(10-len(st.session_state['id']),' games before you can see the result')
+        
 
-    st.write('Your games list:')
+    st.write('Your games list:') #mostra immagini giochi scelti
     colimg1,colimg2= st.columns(2)
     with colimg1:
         for i in range(0,len(st.session_state['images'])):
@@ -70,33 +75,35 @@ with start:
         for i in range(1,len(st.session_state['images'])):
             if i%2 ==1:
                 st.image(st.session_state['images'][i])
+    #idea di mettere un pulsante sotto ogni immagine che permetta di togliere il gioco corrispondente, problema nel for
 
-
-with result:
+    
+    
+with result: #pagina risutlati
     if st.session_state['risultatopronto'] == None:
-        st.write("You have not finished inserting your chosen games!")
+        st.write("You have not finished inserting your chosen games!") #se non hai submittato i giochi non c'è nulla
 
-    elif st.session_state['risultatopronto'] == False:
+    elif st.session_state['risultatopronto'] == False: #pulsante per far partire il processo del back-end
         st.write("Press here for results (It might take a bit to process)")
         if st.button('See results'):
             st.session_state['risultatopronto'] = True
-            st.markdown("![Alt Text](https://media.tenor.com/wpSo-8CrXqUAAAAj/loading-loading-forever.gif)")
+            st.markdown("![Alt Text](https://media.tenor.com/wpSo-8CrXqUAAAAj/loading-loading-forever.gif)") #gif per il loading
             st.session_state['risultati']= ml.game_suggestions(st.session_state['id'],10)
 
 
     if st.session_state['risultatopronto'] == True:
-        st_autorefresh(interval=2000, limit=2, key="fizzbuzzcounter")
+        st_autorefresh(interval=2000, limit=2, key="refreshpergif") #refresha la pagina in modo tale che il loading sparisca
         st.write('Results, ordered')
         st.session_state['risultatiappid']=st.session_state['risultati'].index
-        for giochi in st.session_state['risultatiappid']:
+        
+        for giochi in st.session_state['risultatiappid']: #converte gli appid dei giochi in immagini da mostrare all'utente
             current=dataset.loc[dataset['appid']==giochi]
             resultimage = current['header_image'].iloc[-1]
             st.session_state['risultatiimg'].append(resultimage)
-        for i in range(len(st.session_state['risultatiappid'])):
+         
+        for i in range(len(st.session_state['risultatiappid'])): #mostra i risultati in ordine da 1 a 10
             st.write(i+1,':')
             st.image(st.session_state['risultatiimg'][i])
-            a_link='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
-            #link='[Link al gioco]({link})'.format(link=a_link)
-            #st.markdown(link,unsafe_allow_html=True)
-            if st.button('Link al gioco',a_link):
-                webbrowser.open_new_tab(a_link)
+            steamlink='https://store.steampowered.com/app/' + str(st.session_state['risultatiappid'][i])
+            if st.button('Link al gioco',steamlink): #link alla pagina di Steam
+                webbrowser.open_new_tab(steamlink)
