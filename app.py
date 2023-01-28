@@ -88,6 +88,7 @@ with result: #pagina risutlati
             st.session_state['risultatopronto'] = True
             st.markdown("![Alt Text](https://media.tenor.com/wpSo-8CrXqUAAAAj/loading-loading-forever.gif)") #gif per il loading
             st.session_state['risultati']= ml.game_suggestions(st.session_state['id'],10)
+            st.session_state['risultatiimg']=[]
 
 
     if st.session_state['risultatopronto'] == True:
