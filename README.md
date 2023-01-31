@@ -8,4 +8,4 @@ We utilized 3 of the CSV that were provided in the link, which you can find in t
 The CSVs were merged utilizing dataset.py, which resulted in datasetpulito.csv which was what we used in the app.
 
 The app.py is the streamlit/front-end part of the app, while MLpart.py is the back-end which calculates the game recommendations utilizing a KNN-like method. 
-https://pisdrul-steamgamepicker-app-666ghz.streamlit.app/
+Check it out on Streamlit cloud: https://steamgamepicker.streamlit.app/
